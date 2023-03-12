@@ -1,21 +1,775 @@
-{
-  "args": {}, 
-  "headers": {
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7", 
-    "Accept-Encoding": "gzip, deflate, br", 
-    "Accept-Language": "en-US,en;q=0.9", 
-    "Host": "httpbin.org", 
-    "Sec-Ch-Ua": "\"Chromium\";v=\"110\", \"Not A(Brand\";v=\"24\", \"Google Chrome\";v=\"110\"", 
-    "Sec-Ch-Ua-Mobile": "?0", 
-    "Sec-Ch-Ua-Platform": "\"Windows\"", 
-    "Sec-Fetch-Dest": "document", 
-    "Sec-Fetch-Mode": "navigate", 
-    "Sec-Fetch-Site": "none", 
-    "Sec-Fetch-User": "?1", 
-    "Upgrade-Insecure-Requests": "1", 
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36", 
-    "X-Amzn-Trace-Id": "Root=1-63f945e4-060c14c71925ece06a53c888"
-  }, 
-  "origin": "176.237.30.183", 
-  "url": "https://httpbin.org/get"
-}
+--[[
+	Notes:
+
+	- The character limit for the editor is 16,384. Any scripts above this won't execute from the TextBox.
+]]
+
+--[[ Variables ]]--
+
+local textService = game:GetService("TextService");
+local tweenService = game:GetService("TweenService");
+
+--[[ Functions ]]--
+
+local function create(className, properties, children)
+	local inst = Instance.new(className);
+	for i, v in next, properties do
+	    if i ~= "Parent" then
+	       	inst[i] = v;
+	    end
+	end
+	if children then
+		for i, v in next, children do
+			v.Parent = inst;
+		end
+	end
+	inst.Parent = properties.Parent;
+	return inst;
+end
+
+local function tween(obj, dur, props, ...)
+	local t = tweenService:Create(obj, TweenInfo.new(dur, ...), props);
+	t:Play();
+	return t;
+end
+
+--[[ Create UI ]]--
+
+local gui = create("ScreenGui", { 
+    Name = "androidCheat", 
+    Parent = game:GetService("CoreGui"), 
+    ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+}, {
+    create("TextButton", { 
+        AnchorPoint = Vector2.new(1, 0.5), 
+        AutoButtonColor = false, 
+        BackgroundColor3 = Color3.fromHex("ffffff"), 
+        FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+        FontSize = Enum.FontSize.Size14, 
+        Name = "toggleMain", 
+        Position = UDim2.new(1, -5, 0.5, 0), 
+        Size = UDim2.new(0, 28, 0, 28), 
+        Text = "", 
+        TextColor3 = Color3.fromHex("000000"), 
+        TextSize = 14
+    }, {
+        create("UICorner", { 
+            CornerRadius = UDim.new(0, 4), 
+            Name = "corner"
+        }),
+        create("UIGradient", { 
+            Color = ColorSequence.new({ 
+                ColorSequenceKeypoint.new(0, Color3.new(0.10980392247438431, 0.10980392247438431, 0.10980392247438431)), 
+                ColorSequenceKeypoint.new(1, Color3.new(0.1411764770746231, 0.1411764770746231, 0.1411764770746231))
+            }), 
+            Name = "gradient", 
+            Rotation = 78
+        }),
+        create("ImageLabel", { 
+            AnchorPoint = Vector2.new(0.5, 0.5), 
+            BackgroundColor3 = Color3.fromHex("ffffff"), 
+            BackgroundTransparency = 1, 
+            Image = "rbxassetid://12650950265", 
+            Name = "icon", 
+            Position = UDim2.new(0.5, 0, 0.5, 0), 
+            Size = UDim2.new(1, -6, 1, -6)
+        })
+    }),
+    create("Frame", { 
+        AnchorPoint = Vector2.new(0.5, 0.5), 
+        BackgroundColor3 = Color3.fromHex("ffffff"), 
+        BorderSizePixel = 0, 
+        Name = "main", 
+        Position = UDim2.new(0.5, 0, 0.5, 0), 
+        Size = UDim2.new(1, -100, 1, -100)
+    }, {
+        create("UIGradient", { 
+            Color = ColorSequence.new({ 
+                ColorSequenceKeypoint.new(0, Color3.new(0.10980392247438431, 0.10980392247438431, 0.10980392247438431)), 
+                ColorSequenceKeypoint.new(1, Color3.new(0.1411764770746231, 0.1411764770746231, 0.1411764770746231))
+            }), 
+            Name = "gradient", 
+            Rotation = 78
+        }),
+        create("Frame", { 
+            BackgroundColor3 = Color3.fromHex("181818"), 
+            BorderSizePixel = 0, 
+            Name = "left", 
+            Size = UDim2.new(0, 32, 1, 0)
+        }, {
+            create("UICorner", { 
+                CornerRadius = UDim.new(0, 4), 
+                Name = "corner"
+            }),
+            create("ImageLabel", { 
+                AnchorPoint = Vector2.new(0.5, 0), 
+                BackgroundColor3 = Color3.fromHex("ffffff"), 
+                BackgroundTransparency = 1, 
+                Image = "rbxassetid://12650950265", 
+                Name = "icon", 
+                Position = UDim2.new(0.5, 0, 0, 4), 
+                Size = UDim2.new(0, 26, 0, 26)
+            }),
+            create("Frame", { 
+                AnchorPoint = Vector2.new(0.5, 1), 
+                BackgroundColor3 = Color3.fromHex("ffffff"), 
+                BackgroundTransparency = 1, 
+                Name = "buttons", 
+                Position = UDim2.new(0.5, 0, 1, 0), 
+                Size = UDim2.new(1, -8, 1, -44)
+            }, {
+                create("UIListLayout", { 
+                    Name = "list", 
+                    Padding = UDim.new(0, 4), 
+                    SortOrder = Enum.SortOrder.LayoutOrder
+                }),
+                create("TextButton", { 
+                    AnchorPoint = Vector2.new(0.5, 0.5), 
+                    AutoButtonColor = false, 
+                    BackgroundColor3 = Color3.fromHex("303030"), 
+                    FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+                    FontSize = Enum.FontSize.Size14, 
+                    Name = "editor", 
+                    Position = UDim2.new(0.5, 0, 0.5, 0), 
+                    Size = UDim2.new(0, 24, 0, 24), 
+                    Text = "", 
+                    TextColor3 = Color3.fromHex("000000"), 
+                    TextSize = 14
+                }, {
+                    create("ImageLabel", { 
+                        AnchorPoint = Vector2.new(0.5, 0.5), 
+                        BackgroundColor3 = Color3.fromHex("ffffff"), 
+                        BackgroundTransparency = 1, 
+                        Image = "rbxassetid://12754553068", 
+                        Name = "icon", 
+                        Position = UDim2.new(0.5, 0, 0.5, 0), 
+                        Size = UDim2.new(1, -8, 1, -8)
+                    }),
+                    create("UICorner", { 
+                        CornerRadius = UDim.new(0, 4), 
+                        Name = "corner"
+                    })
+                }),
+                create("TextButton", { 
+                    AnchorPoint = Vector2.new(0.5, 0.5), 
+                    AutoButtonColor = false, 
+                    BackgroundColor3 = Color3.fromHex("303030"), 
+                    BackgroundTransparency = 1, 
+                    FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+                    FontSize = Enum.FontSize.Size14, 
+                    Name = "games", 
+                    Position = UDim2.new(0.5, 0, 0.5, 0), 
+                    Size = UDim2.new(0, 24, 0, 24), 
+                    Text = "", 
+                    TextColor3 = Color3.fromHex("000000"), 
+                    TextSize = 14
+                }, {
+                    create("ImageLabel", { 
+                        AnchorPoint = Vector2.new(0.5, 0.5), 
+                        BackgroundColor3 = Color3.fromHex("ffffff"), 
+                        BackgroundTransparency = 1, 
+                        Image = "rbxassetid://12754552688", 
+                        Name = "icon", 
+                        Position = UDim2.new(0.5, 0, 0.5, 0), 
+                        Size = UDim2.new(1, -8, 1, -8)
+                    }),
+                    create("UICorner", { 
+                        CornerRadius = UDim.new(0, 4), 
+                        Name = "corner"
+                    })
+                }),
+                create("TextButton", { 
+                    AnchorPoint = Vector2.new(0.5, 0.5), 
+                    AutoButtonColor = false, 
+                    BackgroundColor3 = Color3.fromHex("303030"), 
+                    BackgroundTransparency = 1, 
+                    FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+                    FontSize = Enum.FontSize.Size14, 
+                    Name = "settings", 
+                    Position = UDim2.new(0.5, 0, 0.5, 0), 
+                    Size = UDim2.new(0, 24, 0, 24), 
+                    Text = "", 
+                    TextColor3 = Color3.fromHex("000000"), 
+                    TextSize = 14
+                }, {
+                    create("ImageLabel", { 
+                        AnchorPoint = Vector2.new(0.5, 0.5), 
+                        BackgroundColor3 = Color3.fromHex("ffffff"), 
+                        BackgroundTransparency = 1, 
+                        Image = "rbxassetid://12754551474", 
+                        Name = "icon", 
+                        Position = UDim2.new(0.5, 0, 0.5, 0), 
+                        Size = UDim2.new(1, -8, 1, -8)
+                    }),
+                    create("UICorner", { 
+                        CornerRadius = UDim.new(0, 4), 
+                        Name = "corner"
+                    })
+                })
+            })
+        }),
+        create("UICorner", { 
+            CornerRadius = UDim.new(0, 4), 
+            Name = "corner"
+        }),
+        create("TextButton", { 
+            AutoButtonColor = false, 
+            BackgroundColor3 = Color3.fromHex("ffffff"), 
+            BackgroundTransparency = 1, 
+            FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+            FontSize = Enum.FontSize.Size14, 
+            Name = "clickThroughBlocker", 
+            Size = UDim2.new(1, 0, 1, 0), 
+            Text = "", 
+            TextColor3 = Color3.fromHex("000000"), 
+            TextSize = 14, 
+            ZIndex = 0
+        }),
+        create("Folder", { 
+            Name = "tabs"
+        }, {
+            create("Frame", { 
+                AnchorPoint = Vector2.new(1, 0.5), 
+                BackgroundColor3 = Color3.fromHex("ffffff"), 
+                BackgroundTransparency = 1, 
+                Name = "editor", 
+                Position = UDim2.new(1, 0, 0.5, 0), 
+                Size = UDim2.new(1, -32, 1, 0)
+            }, {
+                create("Frame", { 
+                    AnchorPoint = Vector2.new(1, 0.5), 
+                    BackgroundColor3 = Color3.fromHex("181818"), 
+                    BorderSizePixel = 0, 
+                    Name = "right", 
+                    Position = UDim2.new(1, -8, 0.5, 0), 
+                    Size = UDim2.new(0, 110, 1, -16)
+                }, {
+                    create("UICorner", { 
+                        CornerRadius = UDim.new(0, 4), 
+                        Name = "corner"
+                    }),
+                    create("Frame", { 
+                        AnchorPoint = Vector2.new(0.5, 0.5), 
+                        BackgroundColor3 = Color3.fromHex("ffffff"), 
+                        BackgroundTransparency = 1, 
+                        Name = "buttons", 
+                        Position = UDim2.new(0.5, 0, 0.5, 0), 
+                        Size = UDim2.new(1, -8, 1, -8)
+                    }, {
+                        create("UIListLayout", { 
+                            Name = "list", 
+                            Padding = UDim.new(0, 4), 
+                            SortOrder = Enum.SortOrder.LayoutOrder
+                        }),
+                        create("TextLabel", { 
+                            BackgroundColor3 = Color3.fromHex("ffffff"), 
+                            BackgroundTransparency = 1, 
+                            FontFace = Font.new("rbxasset://fonts/families/Roboto.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal), 
+                            FontSize = Enum.FontSize.Size14, 
+                            Name = "boxLabel", 
+                            Size = UDim2.new(1, 0, 0, 16), 
+                            Text = " Editor", 
+                            TextColor3 = Color3.fromHex("bebebe"), 
+                            TextSize = 13, 
+                            TextXAlignment = Enum.TextXAlignment.Left, 
+                            TextYAlignment = Enum.TextYAlignment.Bottom
+                        }),
+                        create("TextButton", { 
+                            AnchorPoint = Vector2.new(0.5, 0.5), 
+                            AutoButtonColor = false, 
+                            BackgroundColor3 = Color3.fromHex("303030"), 
+                            FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+                            FontSize = Enum.FontSize.Size14, 
+                            Name = "executeBox", 
+                            Position = UDim2.new(0.5, 0, 0.5, 0), 
+                            Size = UDim2.new(1, 0, 0, 22), 
+                            Text = "", 
+                            TextColor3 = Color3.fromHex("000000"), 
+                            TextSize = 14
+                        }, {
+                            create("ImageLabel", { 
+                                AnchorPoint = Vector2.new(1, 0.5), 
+                                BackgroundColor3 = Color3.fromHex("ffffff"), 
+                                BackgroundTransparency = 1, 
+                                Image = "rbxassetid://12754551725", 
+                                Name = "icon", 
+                                Position = UDim2.new(1, -6, 0.5, 0), 
+                                Size = UDim2.new(0, 14, 0, 14)
+                            }),
+                            create("UICorner", { 
+                                CornerRadius = UDim.new(0, 4), 
+                                Name = "corner"
+                            }),
+                            create("TextLabel", { 
+                                AnchorPoint = Vector2.new(0, 0.5), 
+                                BackgroundColor3 = Color3.fromHex("ffffff"), 
+                                BackgroundTransparency = 1, 
+                                FontFace = Font.new("rbxasset://fonts/families/Roboto.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal), 
+                                FontSize = Enum.FontSize.Size14, 
+                                Name = "title", 
+                                Position = UDim2.new(0, 6, 0.5, 0), 
+                                Size = UDim2.new(1, -30, 1, 0), 
+                                Text = "Execute", 
+                                TextColor3 = Color3.fromHex("ebebeb"), 
+                                TextSize = 13, 
+                                TextXAlignment = Enum.TextXAlignment.Left
+                            })
+                        }),
+                        create("TextButton", { 
+                            AnchorPoint = Vector2.new(0.5, 0.5), 
+                            AutoButtonColor = false, 
+                            BackgroundColor3 = Color3.fromHex("303030"), 
+                            BackgroundTransparency = 1, 
+                            FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+                            FontSize = Enum.FontSize.Size14, 
+                            Name = "clearBox", 
+                            Position = UDim2.new(0.5, 0, 0.5, 0), 
+                            Size = UDim2.new(1, 0, 0, 22), 
+                            Text = "", 
+                            TextColor3 = Color3.fromHex("000000"), 
+                            TextSize = 14
+                        }, {
+                            create("ImageLabel", { 
+                                AnchorPoint = Vector2.new(1, 0.5), 
+                                BackgroundColor3 = Color3.fromHex("ffffff"), 
+                                BackgroundTransparency = 1, 
+                                Image = "rbxassetid://12754554635", 
+                                Name = "icon", 
+                                Position = UDim2.new(1, -6, 0.5, 0), 
+                                Size = UDim2.new(0, 14, 0, 14)
+                            }),
+                            create("UICorner", { 
+                                CornerRadius = UDim.new(0, 4), 
+                                Name = "corner"
+                            }),
+                            create("TextLabel", { 
+                                AnchorPoint = Vector2.new(0, 0.5), 
+                                BackgroundColor3 = Color3.fromHex("ffffff"), 
+                                BackgroundTransparency = 1, 
+                                FontFace = Font.new("rbxasset://fonts/families/Roboto.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal), 
+                                FontSize = Enum.FontSize.Size14, 
+                                Name = "title", 
+                                Position = UDim2.new(0, 6, 0.5, 0), 
+                                Size = UDim2.new(1, -30, 1, 0), 
+                                Text = "Clear", 
+                                TextColor3 = Color3.fromHex("ebebeb"), 
+                                TextSize = 13, 
+                                TextXAlignment = Enum.TextXAlignment.Left
+                            })
+                        }),
+                        create("Frame", { 
+                            BackgroundColor3 = Color3.fromHex("ffffff"), 
+                            BackgroundTransparency = 1, 
+                            Name = "separator", 
+                            Size = UDim2.new(1, 0, 0, 1)
+                        }, {
+                            create("Frame", { 
+                                AnchorPoint = Vector2.new(0.5, 0.5), 
+                                BackgroundColor3 = Color3.fromHex("363636"), 
+                                BorderSizePixel = 0, 
+                                Name = "bar", 
+                                Position = UDim2.new(0.5, 0, 0.5, 0), 
+                                Size = UDim2.new(1, -8, 1, 0)
+                            }, {
+                                create("UIGradient", { 
+                                    Name = "gradient", 
+                                    Transparency = NumberSequence.new({ 
+                                        NumberSequenceKeypoint.new(0, 1), 
+                                        NumberSequenceKeypoint.new(0.10000000149011612, 0.2800000011920929), 
+                                        NumberSequenceKeypoint.new(0.2800000011920929, 0), 
+                                        NumberSequenceKeypoint.new(0.7200000286102295, 0), 
+                                        NumberSequenceKeypoint.new(0.8999999761581421, 0.2800000011920929), 
+                                        NumberSequenceKeypoint.new(1, 1)
+                                    })
+                                })
+                            })
+                        }),
+                        create("TextLabel", { 
+                            BackgroundColor3 = Color3.fromHex("ffffff"), 
+                            BackgroundTransparency = 1, 
+                            FontFace = Font.new("rbxasset://fonts/families/Roboto.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal), 
+                            FontSize = Enum.FontSize.Size14, 
+                            Name = "clipboardLabel", 
+                            Size = UDim2.new(1, 0, 0, 16), 
+                            Text = " Clipboard", 
+                            TextColor3 = Color3.fromHex("bebebe"), 
+                            TextSize = 13, 
+                            TextXAlignment = Enum.TextXAlignment.Left, 
+                            TextYAlignment = Enum.TextYAlignment.Bottom
+                        }),
+                        create("TextButton", { 
+                            AnchorPoint = Vector2.new(0.5, 0.5), 
+                            AutoButtonColor = false, 
+                            BackgroundColor3 = Color3.fromHex("303030"), 
+                            BackgroundTransparency = 1, 
+                            FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+                            FontSize = Enum.FontSize.Size14, 
+                            Name = "executeClip", 
+                            Position = UDim2.new(0.5, 0, 0.5, 0), 
+                            Size = UDim2.new(1, 0, 0, 22), 
+                            Text = "", 
+                            TextColor3 = Color3.fromHex("000000"), 
+                            TextSize = 14
+                        }, {
+                            create("ImageLabel", { 
+                                AnchorPoint = Vector2.new(1, 0.5), 
+                                BackgroundColor3 = Color3.fromHex("ffffff"), 
+                                BackgroundTransparency = 1, 
+                                Image = "rbxassetid://12754554264", 
+                                Name = "icon", 
+                                Position = UDim2.new(1, -6, 0.5, 0), 
+                                Size = UDim2.new(0, 14, 0, 14)
+                            }),
+                            create("UICorner", { 
+                                CornerRadius = UDim.new(0, 4), 
+                                Name = "corner"
+                            }),
+                            create("TextLabel", { 
+                                AnchorPoint = Vector2.new(0, 0.5), 
+                                BackgroundColor3 = Color3.fromHex("ffffff"), 
+                                BackgroundTransparency = 1, 
+                                FontFace = Font.new("rbxasset://fonts/families/Roboto.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal), 
+                                FontSize = Enum.FontSize.Size14, 
+                                Name = "title", 
+                                Position = UDim2.new(0, 6, 0.5, 0), 
+                                Size = UDim2.new(1, -30, 1, 0), 
+                                Text = "Execute", 
+                                TextColor3 = Color3.fromHex("ebebeb"), 
+                                TextSize = 13, 
+                                TextXAlignment = Enum.TextXAlignment.Left
+                            })
+                        }),
+                        create("TextButton", { 
+                            AnchorPoint = Vector2.new(0.5, 0.5), 
+                            AutoButtonColor = false, 
+                            BackgroundColor3 = Color3.fromHex("303030"), 
+                            BackgroundTransparency = 1, 
+                            FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+                            FontSize = Enum.FontSize.Size14, 
+                            Name = "copyClip", 
+                            Position = UDim2.new(0.5, 0, 0.5, 0), 
+                            Size = UDim2.new(1, 0, 0, 22), 
+                            Text = "", 
+                            TextColor3 = Color3.fromHex("000000"), 
+                            TextSize = 14
+                        }, {
+                            create("ImageLabel", { 
+                                AnchorPoint = Vector2.new(1, 0.5), 
+                                BackgroundColor3 = Color3.fromHex("ffffff"), 
+                                BackgroundTransparency = 1, 
+                                Image = "rbxassetid://12754553777", 
+                                Name = "icon", 
+                                Position = UDim2.new(1, -6, 0.5, 0), 
+                                Size = UDim2.new(0, 14, 0, 14)
+                            }),
+                            create("UICorner", { 
+                                CornerRadius = UDim.new(0, 4), 
+                                Name = "corner"
+                            }),
+                            create("TextLabel", { 
+                                AnchorPoint = Vector2.new(0, 0.5), 
+                                BackgroundColor3 = Color3.fromHex("ffffff"), 
+                                BackgroundTransparency = 1, 
+                                FontFace = Font.new("rbxasset://fonts/families/Roboto.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal), 
+                                FontSize = Enum.FontSize.Size14, 
+                                Name = "title", 
+                                Position = UDim2.new(0, 6, 0.5, 0), 
+                                Size = UDim2.new(1, -30, 1, 0), 
+                                Text = "Copy Script", 
+                                TextColor3 = Color3.fromHex("ebebeb"), 
+                                TextSize = 13, 
+                                TextXAlignment = Enum.TextXAlignment.Left
+                            })
+                        }),
+                        create("TextButton", { 
+                            AnchorPoint = Vector2.new(0.5, 0.5), 
+                            AutoButtonColor = false, 
+                            BackgroundColor3 = Color3.fromHex("303030"), 
+                            BackgroundTransparency = 1, 
+                            FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+                            FontSize = Enum.FontSize.Size14, 
+                            Name = "loadClip", 
+                            Position = UDim2.new(0.5, 0, 0.5, 0), 
+                            Size = UDim2.new(1, 0, 0, 22), 
+                            Text = "", 
+                            TextColor3 = Color3.fromHex("000000"), 
+                            TextSize = 14
+                        }, {
+                            create("ImageLabel", { 
+                                AnchorPoint = Vector2.new(1, 0.5), 
+                                BackgroundColor3 = Color3.fromHex("ffffff"), 
+                                BackgroundTransparency = 1, 
+                                Image = "rbxassetid://12754553499", 
+                                Name = "icon", 
+                                Position = UDim2.new(1, -6, 0.5, 0), 
+                                Size = UDim2.new(0, 14, 0, 14)
+                            }),
+                            create("UICorner", { 
+                                CornerRadius = UDim.new(0, 4), 
+                                Name = "corner"
+                            }),
+                            create("TextLabel", { 
+                                AnchorPoint = Vector2.new(0, 0.5), 
+                                BackgroundColor3 = Color3.fromHex("ffffff"), 
+                                BackgroundTransparency = 1, 
+                                FontFace = Font.new("rbxasset://fonts/families/Roboto.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal), 
+                                FontSize = Enum.FontSize.Size14, 
+                                Name = "title", 
+                                Position = UDim2.new(0, 6, 0.5, 0), 
+                                Size = UDim2.new(1, -30, 1, 0), 
+                                Text = "Load Script", 
+                                TextColor3 = Color3.fromHex("ebebeb"), 
+                                TextSize = 13, 
+                                TextXAlignment = Enum.TextXAlignment.Left
+                            })
+                        })
+                    })
+                }),
+                create("Frame", { 
+                    AnchorPoint = Vector2.new(0, 0.5), 
+                    BackgroundColor3 = Color3.fromHex("181818"), 
+                    Name = "main", 
+                    Position = UDim2.new(0, 8, 0.5, 0), 
+                    Size = UDim2.new(1, -130, 1, -16)
+                }, {
+                    create("UICorner", { 
+                        CornerRadius = UDim.new(0, 4), 
+                        Name = "corner"
+                    }),
+                    create("UIListLayout", { 
+                        FillDirection = Enum.FillDirection.Horizontal, 
+                        Name = "list", 
+                        Padding = UDim.new(0, 4), 
+                        SortOrder = Enum.SortOrder.LayoutOrder
+                    }),
+                    create("ScrollingFrame", { 
+                        Active = true, 
+                        AnchorPoint = Vector2.new(0.5, 0.5), 
+                        BackgroundColor3 = Color3.fromHex("ffffff"), 
+                        BackgroundTransparency = 1, 
+                        BorderSizePixel = 0, 
+                        BottomImage = "rbxassetid://12651249430", 
+                        CanvasSize = UDim2.new(0, 6, 1, 0), 
+                        MidImage = "rbxassetid://12651249103", 
+                        Name = "lineNumbers", 
+                        Position = UDim2.new(0.5, 0, 0.5, 0), 
+                        ScrollBarImageColor3 = Color3.fromHex("484848"), 
+                        ScrollBarThickness = 0, 
+                        ScrollingDirection = Enum.ScrollingDirection.Y, 
+                        ScrollingEnabled = false, 
+                        Size = UDim2.new(0, 6, 1, 0), 
+                        TopImage = "rbxassetid://12651248921"
+                    }, {
+                        create("TextLabel", { 
+                            BackgroundColor3 = Color3.fromHex("ffffff"), 
+                            BackgroundTransparency = 1, 
+                            FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+                            FontSize = Enum.FontSize.Size11, 
+                            Name = "label", 
+                            Size = UDim2.new(1, 0, 1, 0), 
+                            Text = "1", 
+                            TextColor3 = Color3.fromHex("d2d2d2"), 
+                            TextSize = 11, 
+                            TextXAlignment = Enum.TextXAlignment.Right, 
+                            TextYAlignment = Enum.TextYAlignment.Top
+                        })
+                    }),
+                    create("UIPadding", { 
+                        Name = "padding", 
+                        PaddingBottom = UDim.new(0, 8), 
+                        PaddingLeft = UDim.new(0, 8), 
+                        PaddingRight = UDim.new(0, 8), 
+                        PaddingTop = UDim.new(0, 8)
+                    }),
+                    create("Frame", { 
+                        BackgroundColor3 = Color3.fromHex("b2b2b2"), 
+                        BorderSizePixel = 0, 
+                        Name = "separator", 
+                        Size = UDim2.new(0, 1, 1, 0)
+                    }),
+                    create("ScrollingFrame", { 
+                        Active = true, 
+                        AnchorPoint = Vector2.new(0.5, 0.5), 
+                        BackgroundColor3 = Color3.fromHex("ffffff"), 
+                        BackgroundTransparency = 1, 
+                        BorderSizePixel = 0, 
+                        BottomImage = "rbxassetid://12651249430", 
+                        CanvasSize = UDim2.new(1, -15, 1, 0), 
+                        MidImage = "rbxassetid://12651249103", 
+                        Name = "container", 
+                        Position = UDim2.new(0.5, 0, 0.5, 0), 
+                        ScrollBarImageColor3 = Color3.fromHex("484848"), 
+                        ScrollBarThickness = 4, 
+                        Size = UDim2.new(1, -15, 1, 0), 
+                        TopImage = "rbxassetid://12651248921"
+                    }, {
+                        create("TextBox", { 
+                            BackgroundColor3 = Color3.fromHex("ffffff"), 
+                            BackgroundTransparency = 1, 
+                            ClearTextOnFocus = false, 
+                            CursorPosition = -1, 
+                            FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+                            FontSize = Enum.FontSize.Size11, 
+                            MultiLine = true, 
+                            Name = "content", 
+                            Size = UDim2.new(1, 0, 1, 0), 
+                            Text = "loadstring(game:HttpGetAsync(\"https://projectevo.xyz/fake/script.lua\", true))();", 
+                            TextColor3 = Color3.fromHex("b2b2b2"), 
+                            TextSize = 11, 
+                            TextTruncate = Enum.TextTruncate.AtEnd, 
+                            TextWrap = true, 
+                            TextWrapped = true, 
+                            TextXAlignment = Enum.TextXAlignment.Left, 
+                            TextYAlignment = Enum.TextYAlignment.Top
+                        })
+                    })
+                })
+            }),
+            create("Frame", { 
+                AnchorPoint = Vector2.new(1, 0.5), 
+                BackgroundColor3 = Color3.fromHex("ffffff"), 
+                BackgroundTransparency = 1, 
+                Name = "games", 
+                Position = UDim2.new(1, 0, 0.5, 0), 
+                Size = UDim2.new(1, -32, 1, 0), 
+                Visible = false
+            }),
+            create("Frame", { 
+                AnchorPoint = Vector2.new(1, 0.5), 
+                BackgroundColor3 = Color3.fromHex("ffffff"), 
+                BackgroundTransparency = 1, 
+                Name = "settings", 
+                Position = UDim2.new(1, 0, 0.5, 0), 
+                Size = UDim2.new(1, -32, 1, 0), 
+                Visible = false
+            })
+        })
+    }),
+    create("LocalScript", { 
+        Name = "handler", 
+        Source = "unsupported value type"
+    })
+});
+
+--[[ Start ]]--
+
+local tabs = gui:WaitForChild("main"):WaitForChild("tabs");
+local tabButtons = gui.main:WaitForChild("left"):WaitForChild("buttons");
+
+--[[ Toggle UI ]]--
+
+do
+	local toggleMain = gui:WaitForChild("toggleMain");
+	local blur = create("BlurEffect", {
+		Name = "androidBlur",
+		Parent = game:GetService("Lighting")
+	});
+	local isOpen = false;
+
+	toggleMain.MouseButton1Down:Connect(function()
+		isOpen = not isOpen;
+		gui.main.Visible = isOpen;
+		tween(blur, 0.3, {
+			Size = isOpen and 24 or 0
+		});
+	end);
+end
+
+--[[ Select Tabs ]]--
+
+do
+	local selectedTab = tabs:WaitForChild("editor");
+
+	local buttonList = tabButtons:GetChildren();
+	for i = 1, #buttonList do
+		local v = buttonList[i];
+		if v:IsA("TextButton") then
+			local tab = tabs:WaitForChild(v.Name);
+			v.MouseButton1Down:Connect(function()
+				if selectedTab ~= tab then
+					selectedTab.Visible = false;
+					tween(tabButtons[selectedTab.Name], 0.3, {
+						BackgroundTransparency = 1;
+					});
+					selectedTab = tab;
+					tab.Visible = true;
+					tween(v, 0.3, {
+						BackgroundTransparency = 0;
+					});
+				end
+			end);
+		end
+	end
+end
+
+--[[ Editor ]]--
+
+do
+	local maxLines = 250;
+
+	local editor = gui.main.tabs.editor;
+
+	local scroll = editor:WaitForChild("main"):WaitForChild("container");
+	local content = scroll:WaitForChild("content");
+	local lineNumbers = editor.main:WaitForChild("lineNumbers");
+	local lineLabel = lineNumbers:WaitForChild("label");
+
+	local function getTextBounds(input)
+		return textService:GetTextSize(input, content.TextSize, content.Font, Vector2.new(math.huge, math.huge));
+	end
+
+	content:GetPropertyChangedSignal("Text"):Connect(function()
+		local input = content.Text;
+		local lines = math.min(#string.split(input, "\n"), maxLines);
+		local digitLength = #tostring(lines) * 6;
+		local textBounds = getTextBounds(input);
+		local textHeight = math.min(textBounds.Y, maxLines * 11);
+		local str = "";
+		for i = 1, lines do
+			str ..= string.format("%d%s", i, i == lines and "" or "\n");
+		end
+		lineLabel.Text = str;
+		lineNumbers.Size = UDim2.new(0, digitLength, 1, 0);
+		lineNumbers.CanvasSize = UDim2.new(0, digitLength, 0, textHeight);
+		scroll.Size = UDim2.new(1, -(9 + digitLength), 1, 0);
+		scroll.CanvasSize = UDim2.new(0, textBounds.X + digitLength, 0, textHeight);
+	end);
+
+	scroll:GetPropertyChangedSignal("CanvasPosition"):Connect(function()
+		lineNumbers.CanvasPosition = Vector2.new(0, scroll.CanvasPosition.Y);
+	end);
+
+	do
+		local function executeScript(src)
+			getreg().runcode(src);
+		end
+
+		local right = editor:WaitForChild("right"):WaitForChild("buttons");
+
+		right:WaitForChild("executeBox").MouseButton1Down:Connect(function()
+			executeScript(content.Text);
+		end);
+
+		right:WaitForChild("clearBox").MouseButton1Down:Connect(function()
+			content.Text = "";
+		end);
+
+		right:WaitForChild("executeClip").MouseButton1Down:Connect(function()
+			executeScript(getclipboard());
+		end);
+
+		right:WaitForChild("copyClip").MouseButton1Down:Connect(function()
+			setclipboard(content.Text);
+		end);
+
+		right:WaitForChild("loadClip").MouseButton1Down:Connect(function()
+			content.Text = getclipboard();
+		end);
+	end
+end
+
+--[[ Games ]]--
+
+do
+
+end
