@@ -508,7 +508,7 @@ end
 local gui = create("ScreenGui", { 
 	DisplayOrder = 11,
 	Name = "androidCheat", 
-	Parent = --[[ gethui() ]] game:GetService("CoreGui"), 
+	Parent = gethui(), 
 	ResetOnSpawn = false
 });
 
