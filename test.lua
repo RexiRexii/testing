@@ -125,6 +125,150 @@ local gui = create("ScreenGui", {
 	ResetOnSpawn = false
 });
 
+local function loadKeyUI(callback)
+	local keyFrame = create("Frame", { 
+		AnchorPoint = Vector2.new(0.5, 0), 
+		BackgroundColor3 = Color3.fromHex("141414"), 
+		BorderSizePixel = 0, 
+		Name = "keyFrame", 
+		Parent = gui, 
+		Position = UDim2.new(0.5, 0, 0, 25), 
+		Size = UDim2.new(1, -110, 0, 79)
+	}, {
+		create("UICorner", { 
+			CornerRadius = UDim.new(0, 4), 
+			Name = "corner"
+		}),
+		create("TextButton", { 
+			AutoButtonColor = false, 
+			BackgroundColor3 = Color3.fromHex("ffffff"), 
+			BackgroundTransparency = 1, 
+			FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+			FontSize = Enum.FontSize.Size14, 
+			Name = "clickThroughBlocker", 
+			Size = UDim2.new(1, 0, 1, 0), 
+			Text = "", 
+			TextColor3 = Color3.fromHex("000000"), 
+			TextSize = 14, 
+			ZIndex = 0
+		}),
+		create("ImageLabel", { 
+			AnchorPoint = Vector2.new(0.5, 0.5), 
+			BackgroundColor3 = Color3.fromHex("ffffff"), 
+			BackgroundTransparency = 1, 
+			Image = "rbxassetid://12874061329", 
+			ImageColor3 = Color3.fromHex("000000"), 
+			Name = "blur", 
+			Position = UDim2.new(0.5, 0, 0.5, 0), 
+			ScaleType = Enum.ScaleType.Slice, 
+			Size = UDim2.new(1, 10, 1, 10), 
+			SliceCenter = Rect.new(10, 10, 118, 118), 
+			ZIndex = 0
+		}),
+		create("UISizeConstraint", { 
+			MaxSize = Vector2.new(800, 94), 
+			Name = "constraint"
+		}),
+		create("Frame", { 
+			AnchorPoint = Vector2.new(0.5, 0.5), 
+			BackgroundColor3 = Color3.fromHex("ffffff"), 
+			BackgroundTransparency = 1, 
+			Name = "content", 
+			Position = UDim2.new(0.5, 0, 0.5, 0), 
+			Size = UDim2.new(1, 0, 1, 0)
+		}, {
+			create("TextButton", { 
+				AnchorPoint = Vector2.new(1, 1), 
+				AutoButtonColor = false, 
+				BackgroundColor3 = Color3.fromHex("202020"), 
+				FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
+				FontSize = Enum.FontSize.Size14, 
+				Name = "enterKey", 
+				Position = UDim2.new(1, -6, 1, -6), 
+				Size = UDim2.new(0, 94, 0, 30), 
+				Text = "Submit Key", 
+				TextColor3 = Color3.fromHex("ebebeb"), 
+				TextSize = 14
+			}, {
+				create("UICorner", { 
+					CornerRadius = UDim.new(0, 4), 
+					Name = "corner"
+				})
+			}),
+			create("TextButton", { 
+				AnchorPoint = Vector2.new(0, 1), 
+				AutoButtonColor = false, 
+				BackgroundColor3 = Color3.fromHex("202020"), 
+				FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
+				FontSize = Enum.FontSize.Size14, 
+				Name = "getKeyLink", 
+				Position = UDim2.new(0, 6, 1, -6), 
+				Size = UDim2.new(0, 108, 0, 30), 
+				Text = "Copy Key Link", 
+				TextColor3 = Color3.fromHex("ebebeb"), 
+				TextSize = 14
+			}, {
+				create("UICorner", { 
+					CornerRadius = UDim.new(0, 4), 
+					Name = "corner"
+				})
+			}),
+			create("TextBox", { 
+				AnchorPoint = Vector2.new(0.5, 0), 
+				BackgroundColor3 = Color3.fromHex("1a1a1a"), 
+				FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+				FontSize = Enum.FontSize.Size14, 
+				Name = "keyInput", 
+				PlaceholderText = "Enter Key...", 
+				Position = UDim2.new(0.5, 0, 0, 6), 
+				Size = UDim2.new(1, -12, 0, 30), 
+				Text = "", 
+				TextColor3 = Color3.fromHex("ebebeb"), 
+				TextSize = 14, 
+				TextXAlignment = Enum.TextXAlignment.Left
+			}, {
+				create("UICorner", { 
+					CornerRadius = UDim.new(0, 4), 
+					Name = "corner"
+				}),
+				create("UIPadding", { 
+					Name = "padding", 
+					PaddingLeft = UDim.new(0, 8), 
+					PaddingRight = UDim.new(0, 8)
+				}),
+				create("UIStroke", { 
+					ApplyStrokeMode = Enum.ApplyStrokeMode.Border, 
+					Color = Color3.fromHex("5d5d5d"), 
+					Name = "stroke", 
+					Thickness = 1.2
+				})
+			})
+		})
+	});
+
+	--[[ Start ]]--
+
+	local getKey = removeTrace("IjHyfuyuHeg");
+	local checkKey = removeTrace("cHjGyjKbe");
+
+	local content = keyFrame.content;
+
+	--[[ Freemium ]]--
+
+	do
+		content.getKeyLink.MouseButton1Click:Connect(function()
+			_setclipboard(getKey());
+		end);
+
+		content.enterKey.MouseButton1Click:Connect(function()
+			if checkKey(content.keyInput.Text) then
+				gui.keyFrame:Destroy();
+				callback();
+			end
+		end);
+	end
+end
+
 local function loadMainUI()
 	local toggleMain = create("TextButton", { 
 		AnchorPoint = Vector2.new(1, 0.5), 
@@ -186,6 +330,19 @@ local function loadMainUI()
 			ScaleType = Enum.ScaleType.Slice, 
 			Size = UDim2.new(1, 10, 1, 10), 
 			SliceCenter = Rect.new(10, 10, 118, 118), 
+			ZIndex = 0
+		}),
+		create("TextButton", { 
+			AutoButtonColor = false, 
+			BackgroundColor3 = Color3.fromHex("ffffff"), 
+			BackgroundTransparency = 1, 
+			FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+			FontSize = Enum.FontSize.Size14, 
+			Name = "clickThroughBlocker", 
+			Size = UDim2.new(1, 0, 1, 0), 
+			Text = "", 
+			TextColor3 = Color3.fromHex("000000"), 
+			TextSize = 14, 
 			ZIndex = 0
 		}),
 		create("UISizeConstraint", { 
@@ -289,7 +446,7 @@ local function loadMainUI()
 							AnchorPoint = Vector2.new(1, 0), 
 							BackgroundColor3 = Color3.fromHex("ffffff"), 
 							BackgroundTransparency = 1, 
-							FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
+							FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
 							FontSize = Enum.FontSize.Size18, 
 							Name = "title", 
 							Position = UDim2.new(1, -8, 0, 10), 
@@ -305,7 +462,7 @@ local function loadMainUI()
 							AnchorPoint = Vector2.new(0.5, 1), 
 							BackgroundColor3 = Color3.fromHex("ffffff"), 
 							BackgroundTransparency = 1, 
-							FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+							FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
 							FontSize = Enum.FontSize.Size14, 
 							Name = "description", 
 							Position = UDim2.new(0.5, 0, 1, -8), 
@@ -338,7 +495,7 @@ local function loadMainUI()
 							AnchorPoint = Vector2.new(1, 0), 
 							BackgroundColor3 = Color3.fromHex("ffffff"), 
 							BackgroundTransparency = 1, 
-							FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
+							FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
 							FontSize = Enum.FontSize.Size18, 
 							Name = "title", 
 							Position = UDim2.new(1, -8, 0, 10), 
@@ -354,7 +511,7 @@ local function loadMainUI()
 							AnchorPoint = Vector2.new(0.5, 1), 
 							BackgroundColor3 = Color3.fromHex("ffffff"), 
 							BackgroundTransparency = 1, 
-							FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+							FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
 							FontSize = Enum.FontSize.Size14, 
 							Name = "description", 
 							Position = UDim2.new(0.5, 0, 1, -8), 
@@ -466,7 +623,7 @@ local function loadMainUI()
 						create("TextButton", { 
 							AutoButtonColor = false, 
 							BackgroundColor3 = Color3.fromHex("202020"), 
-							FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
+							FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
 							FontSize = Enum.FontSize.Size14, 
 							Name = "website", 
 							Size = UDim2.new(0, 107, 1, 0), 
@@ -498,7 +655,7 @@ local function loadMainUI()
 						create("TextButton", { 
 							AutoButtonColor = false, 
 							BackgroundColor3 = Color3.fromHex("202020"), 
-							FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
+							FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
 							FontSize = Enum.FontSize.Size14, 
 							Name = "discord", 
 							Size = UDim2.new(0, 104, 1, 0), 
@@ -610,7 +767,7 @@ local function loadMainUI()
 							MultiLine = true, 
 							Name = "content", 
 							Size = UDim2.new(1, 0, 1, 0), 
-							Text = "print(\"Evo V4 >>>\");", 
+							Text = "print(\"Kiwi Android >>>\");", 
 							TextColor3 = Color3.fromHex("b2b2b2"), 
 							TextSize = 11, 
 							TextTruncate = Enum.TextTruncate.AtEnd, 
@@ -646,7 +803,7 @@ local function loadMainUI()
 						create("TextButton", { 
 							AutoButtonColor = false, 
 							BackgroundColor3 = Color3.fromHex("202020"), 
-							FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
+							FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
 							FontSize = Enum.FontSize.Size14, 
 							Name = "execute", 
 							Size = UDim2.new(0, 76, 1, 0), 
@@ -662,7 +819,7 @@ local function loadMainUI()
 						create("TextButton", { 
 							AutoButtonColor = false, 
 							BackgroundColor3 = Color3.fromHex("202020"), 
-							FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
+							FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
 							FontSize = Enum.FontSize.Size14, 
 							Name = "clear", 
 							Size = UDim2.new(0, 59, 1, 0), 
@@ -694,7 +851,7 @@ local function loadMainUI()
 						create("TextButton", { 
 							AutoButtonColor = false, 
 							BackgroundColor3 = Color3.fromHex("202020"), 
-							FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
+							FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
 							FontSize = Enum.FontSize.Size14, 
 							Name = "executeClip", 
 							Size = UDim2.new(0, 163, 1, 0), 
@@ -743,7 +900,7 @@ local function loadMainUI()
 							AnchorPoint = Vector2.new(0.5, 0.5), 
 							BackgroundColor3 = Color3.fromHex("1a1a1a"), 
 							CursorPosition = -1, 
-							FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+							FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
 							FontSize = Enum.FontSize.Size14, 
 							Name = "box", 
 							PlaceholderText = "Enter query...", 
@@ -773,7 +930,7 @@ local function loadMainUI()
 					create("TextButton", { 
 						AutoButtonColor = false, 
 						BackgroundColor3 = Color3.fromHex("202020"), 
-						FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
+						FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
 						FontSize = Enum.FontSize.Size14, 
 						Name = "search", 
 						Size = UDim2.new(0, 68, 1, 0), 
@@ -789,7 +946,7 @@ local function loadMainUI()
 					create("TextButton", { 
 						AutoButtonColor = false, 
 						BackgroundColor3 = Color3.fromHex("202020"), 
-						FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
+						FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
 						FontSize = Enum.FontSize.Size14, 
 						Name = "previousPage", 
 						Size = UDim2.new(0, 78, 1, 0), 
@@ -805,7 +962,7 @@ local function loadMainUI()
 					create("TextButton", { 
 						AutoButtonColor = false, 
 						BackgroundColor3 = Color3.fromHex("202020"), 
-						FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
+						FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
 						FontSize = Enum.FontSize.Size14, 
 						Name = "nextPage", 
 						Size = UDim2.new(0, 56, 1, 0), 
@@ -888,10 +1045,9 @@ local function loadMainUI()
 	
 	do
 		local selectedTab = tabs.home;
-		local tabButtons = tabs.home.main;
 
 		local function selectTab(name)
-			local btn, tab = tabButtons[name], tabs[name];
+			local tab = tabs[name];
 			if selectedTab ~= tab then
 				selectedTab.Visible = false;
 				selectedTab = tab;
@@ -899,7 +1055,7 @@ local function loadMainUI()
 			end
 		end
 
-		local buttonList = tabButtons:GetChildren();
+		local buttonList = tabs.home.main:GetChildren();
 		for i = 1, #buttonList do
 			local v = buttonList[i];
 			if v:IsA("TextButton") and v.Name ~= "_" then
@@ -1018,7 +1174,7 @@ local function loadMainUI()
 					AnchorPoint = Vector2.new(0.5, 0), 
 					BackgroundColor3 = Color3.fromHex("ffffff"), 
 					BackgroundTransparency = 1, 
-					FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
+					FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
 					FontSize = Enum.FontSize.Size14, 
 					Name = "title", 
 					Position = UDim2.new(0.5, 0, 0, 0), 
@@ -1035,7 +1191,7 @@ local function loadMainUI()
 					AutoButtonColor = false, 
 					BackgroundColor3 = Color3.fromHex("303030"), 
 					BackgroundTransparency = 1, 
-					FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
+					FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal), 
 					FontSize = Enum.FontSize.Size14, 
 					Name = "execute", 
 					Position = UDim2.new(0.5, 0, 1, -4), 
@@ -1061,7 +1217,7 @@ local function loadMainUI()
 						AnchorPoint = Vector2.new(0, 0.5), 
 						BackgroundColor3 = Color3.fromHex("ffffff"), 
 						BackgroundTransparency = 1, 
-						FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
+						FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal), 
 						FontSize = Enum.FontSize.Size14, 
 						Name = "title", 
 						Position = UDim2.new(0, 6, 0.5, 0), 
