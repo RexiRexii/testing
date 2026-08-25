@@ -1,0 +1,43 @@
+name: ATM11 Cozy Resolver
+
+on:
+  push:
+    branches:
+      - chatgpt-atm11-cozy-resolver-20260826
+    paths:
+      - .github/workflows/atm11-cozy-resolver.yml
+      - .chatgpt/atm11_cozy_resolver.py
+      - .chatgpt/resolver_input.json
+
+permissions:
+  contents: write
+
+jobs:
+  resolve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out resolver branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt-atm11-cozy-resolver-20260826
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Resolve compatible Modrinth files
+        run: python .chatgpt/atm11_cozy_resolver.py
+
+      - name: Commit resolution metadata
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .chatgpt/resolved-mods.json .chatgpt/resolution-report.md
+          if git diff --cached --quiet; then
+            echo "No metadata changes to commit."
+          else
+            git commit -m "Resolve ATM11 cozy expansion metadata"
+            git push origin HEAD:chatgpt-atm11-cozy-resolver-20260826
+          fi
