@@ -1,0 +1,174 @@
+{
+  "ok": true,
+  "scanned_files": 14,
+  "exact_target": "net/fabricmc/loader/api/VersionParsingException",
+  "files": [
+    {
+      "metadata": {
+        "label": "mods/additionallanterns-1.1.2-neoforge-mc26.1.jar",
+        "has_fabric_mod_json": false,
+        "has_neoforge_mods_toml": true,
+        "has_forge_mods_toml": false
+      },
+      "findings": [],
+      "path": "mods/additionallanterns-1.1.2-neoforge-mc26.1.jar"
+    },
+    {
+      "metadata": {
+        "label": "mods/Adorn-8.0.0+26.1.2-neoforge.jar",
+        "has_fabric_mod_json": false,
+        "has_neoforge_mods_toml": true,
+        "has_forge_mods_toml": false
+      },
+      "findings": [],
+      "path": "mods/Adorn-8.0.0+26.1.2-neoforge.jar"
+    },
+    {
+      "metadata": {
+        "label": "mods/Decorativeentities 26.1.2 - v1.0 - NeoForge.jar",
+        "has_fabric_mod_json": false,
+        "has_neoforge_mods_toml": true,
+        "has_forge_mods_toml": false
+      },
+      "findings": [],
+      "path": "mods/Decorativeentities 26.1.2 - v1.0 - NeoForge.jar"
+    },
+    {
+      "metadata": {
+        "label": "mods/decorative-lamps_NeoForge-26.1-1.8.1.jar",
+        "has_fabric_mod_json": false,
+        "has_neoforge_mods_toml": true,
+        "has_forge_mods_toml": false
+      },
+      "findings": [],
+      "path": "mods/decorative-lamps_NeoForge-26.1-1.8.1.jar"
+    },
+    {
+      "metadata": {
+        "label": "mods/decorativelattices 26.1.2 - 1.0 NeoForge.jar",
+        "has_fabric_mod_json": false,
+        "has_neoforge_mods_toml": true,
+        "has_forge_mods_toml": false
+      },
+      "findings": [],
+      "path": "mods/decorativelattices 26.1.2 - 1.0 NeoForge.jar"
+    },
+    {
+      "metadata": {
+        "label": "mods/decorative_workstations-1.0.1.jar",
+        "has_fabric_mod_json": false,
+        "has_neoforge_mods_toml": true,
+        "has_forge_mods_toml": false
+      },
+      "findings": [],
+      "path": "mods/decorative_workstations-1.0.1.jar"
+    },
+    {
+      "metadata": {
+        "label": "mods/glow_sticks-neoforge-26.1.2-7.3.0.jar",
+        "has_fabric_mod_json": false,
+        "has_neoforge_mods_toml": true,
+        "has_forge_mods_toml": false
+      },
+      "findings": [],
+      "path": "mods/glow_sticks-neoforge-26.1.2-7.3.0.jar"
+    },
+    {
+      "metadata": {
+        "label": "mods/Kiwi-mc26.1.2-NeoForge-26.0.17.jar",
+        "has_fabric_mod_json": false,
+        "has_neoforge_mods_toml": true,
+        "has_forge_mods_toml": false
+      },
+      "findings": [],
+      "path": "mods/Kiwi-mc26.1.2-NeoForge-26.0.17.jar"
+    },
+    {
+      "metadata": {
+        "label": "mods/walllanterns-3.1.3.jar",
+        "has_fabric_mod_json": false,
+        "has_neoforge_mods_toml": true,
+        "has_forge_mods_toml": false
+      },
+      "findings": [],
+      "path": "mods/walllanterns-3.1.3.jar"
+    },
+    {
+      "metadata": {
+        "label": "mods/LightingWand-mc26.1-NeoForge-26.0.1.jar",
+        "has_fabric_mod_json": false,
+        "has_neoforge_mods_toml": true,
+        "has_forge_mods_toml": false
+      },
+      "findings": [],
+      "path": "mods/LightingWand-mc26.1-NeoForge-26.0.1.jar"
+    },
+    {
+      "metadata": {
+        "label": "mods/mdm-26.7.0-neoforge-26.1.2.jar",
+        "has_fabric_mod_json": false,
+        "has_neoforge_mods_toml": true,
+        "has_forge_mods_toml": false
+      },
+      "findings": [],
+      "path": "mods/mdm-26.7.0-neoforge-26.1.2.jar"
+    },
+    {
+      "metadata": {
+        "label": "mods/monolib-neoforge-26.1.2-4.1.1.jar",
+        "has_fabric_mod_json": false,
+        "has_neoforge_mods_toml": true,
+        "has_forge_mods_toml": false
+      },
+      "findings": [],
+      "path": "mods/monolib-neoforge-26.1.2-4.1.1.jar"
+    },
+    {
+      "metadata": {
+        "label": "mods/more_beautiful_torches-merged-26.1.2-3.1.0.jar",
+        "has_fabric_mod_json": true,
+        "has_neoforge_mods_toml": true,
+        "has_forge_mods_toml": false
+      },
+      "findings": [
+        {
+          "container": "mods/more_beautiful_torches-merged-26.1.2-3.1.0.jar",
+          "member": "fabric/io/github/jason13official/more_beautiful_torches/platform/FabricPlatformHelper.class",
+          "exact_version_parsing_exception": false,
+          "fabric_loader_api_reference": true,
+          "matching_strings": [
+            "$net/fabricmc/loader/api/FabricLoader",
+            "(()Lnet/fabricmc/loader/api/FabricLoader;",
+            "<net/fabricmc/fabric/api/creativetab/v1/FabricCreativeModeTab"
+          ]
+        }
+      ],
+      "path": "mods/more_beautiful_torches-merged-26.1.2-3.1.0.jar"
+    },
+    {
+      "metadata": {
+        "label": "mods/simplytents-3.1-26.1.2.neo.jar",
+        "has_fabric_mod_json": false,
+        "has_neoforge_mods_toml": true,
+        "has_forge_mods_toml": false
+      },
+      "findings": [],
+      "path": "mods/simplytents-3.1-26.1.2.neo.jar"
+    }
+  ],
+  "exact_hits": [],
+  "all_fabric_loader_api_hits": [
+    {
+      "path": "mods/more_beautiful_torches-merged-26.1.2-3.1.0.jar",
+      "container": "mods/more_beautiful_torches-merged-26.1.2-3.1.0.jar",
+      "member": "fabric/io/github/jason13official/more_beautiful_torches/platform/FabricPlatformHelper.class",
+      "exact_version_parsing_exception": false,
+      "fabric_loader_api_reference": true,
+      "matching_strings": [
+        "$net/fabricmc/loader/api/FabricLoader",
+        "(()Lnet/fabricmc/loader/api/FabricLoader;",
+        "<net/fabricmc/fabric/api/creativetab/v1/FabricCreativeModeTab"
+      ]
+    }
+  ]
+}
