@@ -1,9 +1,363 @@
 {
-  "ok": false,
-  "failures": [
+  "ok": true,
+  "generated_at": "2026-08-25T22:46:31.710450+00:00",
+  "game_version": "26.1.2",
+  "loader": "neoforge",
+  "entries": [
     {
-      "slug": "farmhouse-decorations",
-      "error": "No 26.1.2/neoforge version for Farmhouse Decorations"
+      "path": "mods/additionallanterns-1.1.2-neoforge-mc26.1.jar",
+      "hashes": {
+        "sha1": "80108b8163f4261741ac8cff9dfa4ee9d01f8a24",
+        "sha512": "9d0a7c7a9b5a40c5170a2071e27c2d71d8b687707768f14f5dcc4b7914e6abf682557c55b4f283434b1315eeed4dfa7ffdeb848c374af3c2d0fce35b0a619880"
+      },
+      "env": {
+        "client": "required",
+        "server": "required"
+      },
+      "downloads": [
+        "https://cdn.modrinth.com/data/jXNvTKds/versions/4O1IQFf7/additionallanterns-1.1.2-neoforge-mc26.1.jar"
+      ],
+      "fileSize": 3671327
+    },
+    {
+      "path": "mods/Adorn-8.0.0+26.1.2-neoforge.jar",
+      "hashes": {
+        "sha1": "ef3a467c8af6efe9510e4c3f95bdc86c59e923e2",
+        "sha512": "194d28deef04f16b1d916b5f62f0321cb7700c23e3cf1b8dbdcf657c1bc5c6aef6729cdc6e76eaec831be02e87adcd4c7edbff43093d4cef91f24ae333620386"
+      },
+      "env": {
+        "client": "required",
+        "server": "required"
+      },
+      "downloads": [
+        "https://cdn.modrinth.com/data/E6FUtRJh/versions/wj0Rz7R5/Adorn-8.0.0%2B26.1.2-neoforge.jar"
+      ],
+      "fileSize": 2625332
+    },
+    {
+      "path": "mods/Decorativeentities 26.1.2 - v1.0 - NeoForge.jar",
+      "hashes": {
+        "sha1": "fc46af9d81b4d7a2ba31294740b941a1c3eeb647",
+        "sha512": "2d9c6781043dc136136c82e4f534428649c5481b8940e2de989120b571ffade86d74bd9aa482830adf0866e024e9a02595c76dd545a93013e4e4a115ada293c6"
+      },
+      "env": {
+        "client": "required",
+        "server": "required"
+      },
+      "downloads": [
+        "https://cdn.modrinth.com/data/v06sTRk7/versions/nM2iGIA9/Decorativeentities%2026.1.2%20-%20v1.0%20-%20NeoForge.jar"
+      ],
+      "fileSize": 918042
+    },
+    {
+      "path": "mods/decorative-lamps_NeoForge-26.1-1.8.1.jar",
+      "hashes": {
+        "sha1": "ae83d51d612ad69227651ad373665872c4f3868b",
+        "sha512": "b992ff60026cd5e588400a8ccbe724c16969f3fd6b264928e71b6b7f253e5fa83d7932cadc1dff5c055ad7464de7ea5892cc2f00854de973cbda7d09fb97356f"
+      },
+      "env": {
+        "client": "required",
+        "server": "required"
+      },
+      "downloads": [
+        "https://cdn.modrinth.com/data/B4n7BWWA/versions/lHcFTmmo/decorative-lamps_NeoForge-26.1-1.8.1.jar"
+      ],
+      "fileSize": 1029410
+    },
+    {
+      "path": "mods/decorativelattices 26.1.2 - 1.0 NeoForge.jar",
+      "hashes": {
+        "sha1": "47e22f2739e0ab1831c7d2564b27b96ebcacd1dc",
+        "sha512": "df941d785fd425b7d7a2959d7b23f4f8a9039f3c3018bd88581831d5bc502fe37fcfd7307538c90f1eae8287b7a9d8c6c91251e44fd46a1d0b3b7ce0956affe6"
+      },
+      "env": {
+        "client": "required",
+        "server": "required"
+      },
+      "downloads": [
+        "https://cdn.modrinth.com/data/b1pcvrUx/versions/rknjTpde/decorativelattices%2026.1.2%20-%201.0%20NeoForge.jar"
+      ],
+      "fileSize": 4353996
+    },
+    {
+      "path": "mods/decorative_workstations-1.0.1.jar",
+      "hashes": {
+        "sha1": "5c9ac98f861b44ba6479b266e22ce8c4b1e30b99",
+        "sha512": "486b9df52dc999837247084802aa13951b5bf0d2a4598657cb48fe4f5b70d5f0af2325efe32d1d2df5b7b167915c31b40cb4fc671a849458bc6f47aff595d519"
+      },
+      "env": {
+        "client": "required",
+        "server": "required"
+      },
+      "downloads": [
+        "https://cdn.modrinth.com/data/PMg729qN/versions/Y48W355X/decorative_workstations-1.0.1.jar"
+      ],
+      "fileSize": 215422
+    },
+    {
+      "path": "mods/glow_sticks-neoforge-26.1.2-7.3.0.jar",
+      "hashes": {
+        "sha1": "aee1f42eddddc5219f16875c0b97c89bd4b6d0f4",
+        "sha512": "f363eff35f0a99b2d4eeaf1514d3bb35f8924cb5a7bcf09347357bf229ebc3101bbec467bf2952b7282d08948ffb803ccdeaf77f3d1417670d01c00772b8c0ed"
+      },
+      "env": {
+        "client": "required",
+        "server": "required"
+      },
+      "downloads": [
+        "https://cdn.modrinth.com/data/pr7UDXB2/versions/E6DVPKiC/glow_sticks-neoforge-26.1.2-7.3.0.jar"
+      ],
+      "fileSize": 361574
+    },
+    {
+      "path": "mods/Kiwi-mc26.1.2-NeoForge-26.0.17.jar",
+      "hashes": {
+        "sha1": "412901503c401f869781c761e5b464c3b2917ffc",
+        "sha512": "8a6b9a4379156c4768d6fc93f9a63bc8e6bc49c5a739f243b97ceee520df272d5c967f7a7c2fd00468c6de81cb3a690ba48cbfe3998554483f9154c81e99b5c5"
+      },
+      "env": {
+        "client": "required",
+        "server": "required"
+      },
+      "downloads": [
+        "https://cdn.modrinth.com/data/ufdDoWPd/versions/5Vq6yLfN/Kiwi-mc26.1.2-NeoForge-26.0.17.jar"
+      ],
+      "fileSize": 1595615
+    },
+    {
+      "path": "mods/walllanterns-3.1.3.jar",
+      "hashes": {
+        "sha1": "ea6d59547d8c63f0dc4d3d3ba6653caee39f6cd3",
+        "sha512": "ac5c6176a44b175b6faa4370691f0041867c2ddedb38f45f9200a8176db5aa607b099fd01d2f117cd2d0a8eaf5dc13ff30d73ae57166dffa545a59d09c0114eb"
+      },
+      "env": {
+        "client": "required",
+        "server": "required"
+      },
+      "downloads": [
+        "https://cdn.modrinth.com/data/V1CFwy2A/versions/u7YZcjNh/walllanterns-3.1.3.jar"
+      ],
+      "fileSize": 48119
+    },
+    {
+      "path": "mods/LightingWand-mc26.1-NeoForge-26.0.1.jar",
+      "hashes": {
+        "sha1": "c4c72bae5c08b13803088343ce3b46f158c8424e",
+        "sha512": "89b5d624ace0b38f36d8bc3c82550247192fcbf7d6066377d3ae1353ecee8304f7516ee24468e83be921df904408122c839343347619cafed35b68fda0159c9b"
+      },
+      "env": {
+        "client": "required",
+        "server": "required"
+      },
+      "downloads": [
+        "https://cdn.modrinth.com/data/lak1V0eP/versions/GE5JO6rA/LightingWand-mc26.1-NeoForge-26.0.1.jar"
+      ],
+      "fileSize": 56290
+    },
+    {
+      "path": "mods/mdm-26.7.0-neoforge-26.1.2.jar",
+      "hashes": {
+        "sha1": "deecf46a504882a778482475bd8934c54e3eb5e3",
+        "sha512": "28efdbbf38d7a94d1502e18d5115afcc1cd0ca609fbb414f57efa5f5fdb86feaf8c7aa7c5ea02d81a30985506ddb2f7c8573346fa19bb72e1b37b21930c56fa3"
+      },
+      "env": {
+        "client": "required",
+        "server": "required"
+      },
+      "downloads": [
+        "https://cdn.modrinth.com/data/TmUXSYKk/versions/EAA8h9j3/mdm-26.7.0-neoforge-26.1.2.jar"
+      ],
+      "fileSize": 2863849
+    },
+    {
+      "path": "mods/monolib-neoforge-26.1.2-4.1.1.jar",
+      "hashes": {
+        "sha1": "88b2044aeba5f03e59248a7410881709351b1845",
+        "sha512": "031d9cb7115da2723f88b5e63d0a2493d87b68ac3dab1e2eba4e13ead8774aa5c0496bb58dad45cc104542a6b1dd24277e516ff07207ac6dd96059a3a6bcd780"
+      },
+      "env": {
+        "client": "required",
+        "server": "required"
+      },
+      "downloads": [
+        "https://cdn.modrinth.com/data/9leXt4A5/versions/sslnqpaM/monolib-neoforge-26.1.2-4.1.1.jar"
+      ],
+      "fileSize": 101883
+    },
+    {
+      "path": "mods/more_beautiful_torches-merged-26.1.2-3.1.0.jar",
+      "hashes": {
+        "sha1": "22e366718aea64c070690095154f27ab8f8d8940",
+        "sha512": "41d42c97463bc490d8b373fb822769234ac9ac518a4f42cc6e02f9dc28415143b85e73ebdd4d71cb24cb0371337ae0d4c2d0fd318527f8f8d7c7199c92b491c2"
+      },
+      "env": {
+        "client": "required",
+        "server": "required"
+      },
+      "downloads": [
+        "https://cdn.modrinth.com/data/C341qvJ5/versions/3qa3qO5q/more_beautiful_torches-merged-26.1.2-3.1.0.jar"
+      ],
+      "fileSize": 3072982
+    },
+    {
+      "path": "mods/simplytents-3.1-26.1.2.neo.jar",
+      "hashes": {
+        "sha1": "0e6d913fa63722925298bb62615eaafc5a87124f",
+        "sha512": "efed944a185af98687c1d88a4342647e5b7f10e0923fbcf28a3b2351d0fec859e5e467c8c63423b45dc9ca23b517ff2e124f7eb12eda54c7949438258eece9cf"
+      },
+      "env": {
+        "client": "required",
+        "server": "required"
+      },
+      "downloads": [
+        "https://cdn.modrinth.com/data/yWY7WWmg/versions/vftwdq7I/simplytents-3.1-26.1.2.neo.jar"
+      ],
+      "fileSize": 985779
     }
+  ],
+  "selected_projects": [
+    {
+      "project_id": "jXNvTKds",
+      "slug": "additional-lanterns",
+      "title": "Additional Lanterns",
+      "version_id": "4O1IQFf7",
+      "version_number": "1.1.2-neoforge-mc26.1",
+      "requested": true,
+      "path": "mods/additionallanterns-1.1.2-neoforge-mc26.1.jar",
+      "url": "https://cdn.modrinth.com/data/jXNvTKds/versions/4O1IQFf7/additionallanterns-1.1.2-neoforge-mc26.1.jar"
+    },
+    {
+      "project_id": "E6FUtRJh",
+      "slug": "adorn",
+      "title": "Adorn",
+      "version_id": "wj0Rz7R5",
+      "version_number": "8.0.0-neoforge",
+      "requested": true,
+      "path": "mods/Adorn-8.0.0+26.1.2-neoforge.jar",
+      "url": "https://cdn.modrinth.com/data/E6FUtRJh/versions/wj0Rz7R5/Adorn-8.0.0%2B26.1.2-neoforge.jar"
+    },
+    {
+      "project_id": "v06sTRk7",
+      "slug": "decorative-entities",
+      "title": "Decorative Entities",
+      "version_id": "nM2iGIA9",
+      "version_number": "1.0",
+      "requested": true,
+      "path": "mods/Decorativeentities 26.1.2 - v1.0 - NeoForge.jar",
+      "url": "https://cdn.modrinth.com/data/v06sTRk7/versions/nM2iGIA9/Decorativeentities%2026.1.2%20-%20v1.0%20-%20NeoForge.jar"
+    },
+    {
+      "project_id": "B4n7BWWA",
+      "slug": "decorative-lamps",
+      "title": "Decorative Lamps",
+      "version_id": "lHcFTmmo",
+      "version_number": "1.8.1",
+      "requested": true,
+      "path": "mods/decorative-lamps_NeoForge-26.1-1.8.1.jar",
+      "url": "https://cdn.modrinth.com/data/B4n7BWWA/versions/lHcFTmmo/decorative-lamps_NeoForge-26.1-1.8.1.jar"
+    },
+    {
+      "project_id": "b1pcvrUx",
+      "slug": "decorative-lattices",
+      "title": "Decorative Lattices",
+      "version_id": "rknjTpde",
+      "version_number": "1.0",
+      "requested": true,
+      "path": "mods/decorativelattices 26.1.2 - 1.0 NeoForge.jar",
+      "url": "https://cdn.modrinth.com/data/b1pcvrUx/versions/rknjTpde/decorativelattices%2026.1.2%20-%201.0%20NeoForge.jar"
+    },
+    {
+      "project_id": "PMg729qN",
+      "slug": "decorative-workstations",
+      "title": "Decorative Workstations",
+      "version_id": "Y48W355X",
+      "version_number": "1.0.1+26.1.2",
+      "requested": true,
+      "path": "mods/decorative_workstations-1.0.1.jar",
+      "url": "https://cdn.modrinth.com/data/PMg729qN/versions/Y48W355X/decorative_workstations-1.0.1.jar"
+    },
+    {
+      "project_id": "pr7UDXB2",
+      "slug": "glow-sticks",
+      "title": "Glow Sticks",
+      "version_id": "E6DVPKiC",
+      "version_number": "7.3.0",
+      "requested": true,
+      "path": "mods/glow_sticks-neoforge-26.1.2-7.3.0.jar",
+      "url": "https://cdn.modrinth.com/data/pr7UDXB2/versions/E6DVPKiC/glow_sticks-neoforge-26.1.2-7.3.0.jar"
+    },
+    {
+      "project_id": "ufdDoWPd",
+      "slug": "kiwi",
+      "title": "Kiwi \ud83e\udd5d",
+      "version_id": "5Vq6yLfN",
+      "version_number": "26.0.17+neoforge",
+      "requested": false,
+      "path": "mods/Kiwi-mc26.1.2-NeoForge-26.0.17.jar",
+      "url": "https://cdn.modrinth.com/data/ufdDoWPd/versions/5Vq6yLfN/Kiwi-mc26.1.2-NeoForge-26.0.17.jar"
+    },
+    {
+      "project_id": "V1CFwy2A",
+      "slug": "lanterns-bow",
+      "title": "Lanterns Belong on Walls",
+      "version_id": "u7YZcjNh",
+      "version_number": "3.1.3+26.1.2-neoforge",
+      "requested": true,
+      "path": "mods/walllanterns-3.1.3.jar",
+      "url": "https://cdn.modrinth.com/data/V1CFwy2A/versions/u7YZcjNh/walllanterns-3.1.3.jar"
+    },
+    {
+      "project_id": "lak1V0eP",
+      "slug": "lighting-wand",
+      "title": "Lighting Wand \ud83c\udf1f",
+      "version_id": "GE5JO6rA",
+      "version_number": "26.0.1+neoforge",
+      "requested": true,
+      "path": "mods/LightingWand-mc26.1-NeoForge-26.0.1.jar",
+      "url": "https://cdn.modrinth.com/data/lak1V0eP/versions/GE5JO6rA/LightingWand-mc26.1-NeoForge-26.0.1.jar"
+    },
+    {
+      "project_id": "TmUXSYKk",
+      "slug": "modern-decorations-mod",
+      "title": "MDM (formerly Modern Decorations Mod)",
+      "version_id": "EAA8h9j3",
+      "version_number": "26.7.0",
+      "requested": true,
+      "path": "mods/mdm-26.7.0-neoforge-26.1.2.jar",
+      "url": "https://cdn.modrinth.com/data/TmUXSYKk/versions/EAA8h9j3/mdm-26.7.0-neoforge-26.1.2.jar"
+    },
+    {
+      "project_id": "9leXt4A5",
+      "slug": "monolib",
+      "title": "MonoLib",
+      "version_id": "sslnqpaM",
+      "version_number": "neoforge-26.1.2-4.1.1",
+      "requested": false,
+      "path": "mods/monolib-neoforge-26.1.2-4.1.1.jar",
+      "url": "https://cdn.modrinth.com/data/9leXt4A5/versions/sslnqpaM/monolib-neoforge-26.1.2-4.1.1.jar"
+    },
+    {
+      "project_id": "C341qvJ5",
+      "slug": "more-beautiful-torches",
+      "title": "More Beautiful Torches",
+      "version_id": "3qa3qO5q",
+      "version_number": "3.1.0",
+      "requested": true,
+      "path": "mods/more_beautiful_torches-merged-26.1.2-3.1.0.jar",
+      "url": "https://cdn.modrinth.com/data/C341qvJ5/versions/3qa3qO5q/more_beautiful_torches-merged-26.1.2-3.1.0.jar"
+    },
+    {
+      "project_id": "yWY7WWmg",
+      "slug": "simply-tents",
+      "title": "Simply Tents",
+      "version_id": "vftwdq7I",
+      "version_number": "3.1-26.1.2.neo",
+      "requested": true,
+      "path": "mods/simplytents-3.1-26.1.2.neo.jar",
+      "url": "https://cdn.modrinth.com/data/yWY7WWmg/versions/vftwdq7I/simplytents-3.1-26.1.2.neo.jar"
+    }
+  ],
+  "reused_baseline_dependencies": [
+    "SuperMartijn642's Core Lib"
   ]
 }
