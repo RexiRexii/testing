@@ -1,0 +1,9 @@
+{
+  "ok": false,
+  "failures": [
+    {
+      "slug": "farmhouse-decorations",
+      "error": "No 26.1.2/neoforge version for Farmhouse Decorations"
+    }
+  ]
+}
