@@ -23,10 +23,10 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Download and hash every selected file
+      - name: Download, hash, and scan every selected file
         run: |
           python - <<'PY'
-          import hashlib, json, urllib.request
+          import hashlib, io, json, re, urllib.request, zipfile
           from pathlib import Path
 
           root = Path('.chatgpt')
@@ -34,48 +34,106 @@ jobs:
           if not data.get('ok'):
               raise SystemExit('resolution metadata is not successful')
 
+          target = b'net/fabricmc/loader/api/VersionParsingException'
+          prefix = b'net/fabricmc/loader/api/'
+          dotted_target = b'net.fabricmc.loader.api.VersionParsingException'
+          ascii_re = re.compile(rb'[ -~]{8,}')
+
+          def scan_zip(raw, label, depth=0):
+              findings = []
+              try:
+                  with zipfile.ZipFile(io.BytesIO(raw)) as jar:
+                      names = set(jar.namelist())
+                      metadata = {
+                          'label': label,
+                          'has_fabric_mod_json': 'fabric.mod.json' in names,
+                          'has_neoforge_mods_toml': 'META-INF/neoforge.mods.toml' in names,
+                          'has_forge_mods_toml': 'META-INF/mods.toml' in names,
+                      }
+                      for name in jar.namelist():
+                          try:
+                              payload = jar.read(name)
+                          except Exception:
+                              continue
+                          exact = target in payload or dotted_target in payload
+                          any_api = prefix in payload
+                          if exact or any_api:
+                              strings = []
+                              for s in ascii_re.findall(payload):
+                                  if b'fabricmc' in s or b'VersionParsingException' in s:
+                                      strings.append(s.decode('ascii', 'replace')[:500])
+                              findings.append({
+                                  'container': label,
+                                  'member': name,
+                                  'exact_version_parsing_exception': exact,
+                                  'fabric_loader_api_reference': any_api,
+                                  'matching_strings': sorted(set(strings))[:30],
+                              })
+                          if depth < 3 and name.lower().endswith('.jar'):
+                              findings.extend(scan_zip(payload, f'{label}!/{name}', depth + 1)['findings'])
+                      return {'metadata': metadata, 'findings': findings}
+              except zipfile.BadZipFile:
+                  return {'metadata': {'label': label, 'bad_zip': True}, 'findings': []}
+
           results = []
+          scans = []
           for entry in data['entries']:
               url = entry['downloads'][0]
-              sha1 = hashlib.sha1()
-              sha512 = hashlib.sha512()
-              size = 0
-              req = urllib.request.Request(url, headers={'User-Agent': 'ATM11-Cozy-Download-Verifier/1.0'})
+              req = urllib.request.Request(url, headers={'User-Agent': 'ATM11-Cozy-Download-Verifier/1.1'})
               with urllib.request.urlopen(req, timeout=120) as response:
-                  while True:
-                      chunk = response.read(1024 * 1024)
-                      if not chunk:
-                          break
-                      size += len(chunk)
-                      sha1.update(chunk)
-                      sha512.update(chunk)
+                  raw = response.read()
               result = {
                   'path': entry['path'],
                   'url': url,
-                  'size': size,
-                  'sha1': sha1.hexdigest(),
-                  'sha512': sha512.hexdigest(),
-                  'size_ok': size == entry['fileSize'],
-                  'sha1_ok': sha1.hexdigest() == entry['hashes']['sha1'],
-                  'sha512_ok': sha512.hexdigest() == entry['hashes']['sha512'],
+                  'size': len(raw),
+                  'sha1': hashlib.sha1(raw).hexdigest(),
+                  'sha512': hashlib.sha512(raw).hexdigest(),
+                  'size_ok': len(raw) == entry['fileSize'],
+                  'sha1_ok': hashlib.sha1(raw).hexdigest() == entry['hashes']['sha1'],
+                  'sha512_ok': hashlib.sha512(raw).hexdigest() == entry['hashes']['sha512'],
               }
               results.append(result)
               if not all((result['size_ok'], result['sha1_ok'], result['sha512_ok'])):
                   raise SystemExit(f"verification failed for {entry['path']}: {result}")
+              scan = scan_zip(raw, entry['path'])
+              scan['path'] = entry['path']
+              scans.append(scan)
 
           report = {'ok': True, 'verified_files': len(results), 'results': results}
           (root / 'download-verification.json').write_text(json.dumps(report, indent=2) + '\n')
-          print(json.dumps({'ok': True, 'verified_files': len(results)}))
+          scan_report = {
+              'ok': True,
+              'scanned_files': len(scans),
+              'exact_target': target.decode(),
+              'files': scans,
+              'exact_hits': [
+                  {'path': s['path'], **f}
+                  for s in scans for f in s['findings']
+                  if f['exact_version_parsing_exception']
+              ],
+              'all_fabric_loader_api_hits': [
+                  {'path': s['path'], **f}
+                  for s in scans for f in s['findings']
+                  if f['fabric_loader_api_reference']
+              ],
+          }
+          (root / 'class-scan.json').write_text(json.dumps(scan_report, indent=2) + '\n')
+          print(json.dumps({
+              'ok': True,
+              'verified_files': len(results),
+              'exact_hits': len(scan_report['exact_hits']),
+              'fabric_api_hits': len(scan_report['all_fabric_loader_api_hits']),
+          }))
           PY
 
-      - name: Commit verification report
+      - name: Commit verification and scan reports
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .chatgpt/download-verification.json
+          git add .chatgpt/download-verification.json .chatgpt/class-scan.json
           if git diff --cached --quiet; then
             echo "No verification changes to commit."
           else
-            git commit -m "Verify ATM11 cozy expansion downloads"
+            git commit -m "Scan ATM11 cozy jars for Fabric Loader references"
             git push origin HEAD:chatgpt-atm11-cozy-resolver-20260826
           fi
