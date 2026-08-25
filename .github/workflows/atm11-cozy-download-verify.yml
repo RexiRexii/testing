@@ -1,0 +1,81 @@
+name: ATM11 Cozy Download Verification
+
+on:
+  push:
+    branches:
+      - chatgpt-atm11-cozy-resolver-20260826
+    paths:
+      - .github/workflows/atm11-cozy-download-verify.yml
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt-atm11-cozy-resolver-20260826
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download and hash every selected file
+        run: |
+          python - <<'PY'
+          import hashlib, json, urllib.request
+          from pathlib import Path
+
+          root = Path('.chatgpt')
+          data = json.loads((root / 'resolved-mods.json').read_text())
+          if not data.get('ok'):
+              raise SystemExit('resolution metadata is not successful')
+
+          results = []
+          for entry in data['entries']:
+              url = entry['downloads'][0]
+              sha1 = hashlib.sha1()
+              sha512 = hashlib.sha512()
+              size = 0
+              req = urllib.request.Request(url, headers={'User-Agent': 'ATM11-Cozy-Download-Verifier/1.0'})
+              with urllib.request.urlopen(req, timeout=120) as response:
+                  while True:
+                      chunk = response.read(1024 * 1024)
+                      if not chunk:
+                          break
+                      size += len(chunk)
+                      sha1.update(chunk)
+                      sha512.update(chunk)
+              result = {
+                  'path': entry['path'],
+                  'url': url,
+                  'size': size,
+                  'sha1': sha1.hexdigest(),
+                  'sha512': sha512.hexdigest(),
+                  'size_ok': size == entry['fileSize'],
+                  'sha1_ok': sha1.hexdigest() == entry['hashes']['sha1'],
+                  'sha512_ok': sha512.hexdigest() == entry['hashes']['sha512'],
+              }
+              results.append(result)
+              if not all((result['size_ok'], result['sha1_ok'], result['sha512_ok'])):
+                  raise SystemExit(f"verification failed for {entry['path']}: {result}")
+
+          report = {'ok': True, 'verified_files': len(results), 'results': results}
+          (root / 'download-verification.json').write_text(json.dumps(report, indent=2) + '\n')
+          print(json.dumps({'ok': True, 'verified_files': len(results)}))
+          PY
+
+      - name: Commit verification report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .chatgpt/download-verification.json
+          if git diff --cached --quiet; then
+            echo "No verification changes to commit."
+          else
+            git commit -m "Verify ATM11 cozy expansion downloads"
+            git push origin HEAD:chatgpt-atm11-cozy-resolver-20260826
+          fi
