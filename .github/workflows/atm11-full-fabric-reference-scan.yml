@@ -1,0 +1,180 @@
+name: ATM11 Full Fabric Reference Scan
+
+on:
+  push:
+    branches:
+      - chatgpt-atm11-cozy-resolver-20260826
+    paths:
+      - .github/workflows/atm11-full-fabric-reference-scan.yml
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt-atm11-cozy-resolver-20260826
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download and recursively scan every indexed ATM11 mod
+        run: |
+          python - <<'PY'
+          import hashlib, io, json, time, urllib.error, urllib.request, zipfile
+          from pathlib import Path
+
+          root = Path('.chatgpt')
+          cfg = json.loads((root / 'resolver_input.json').read_text())
+          resolved_path = root / 'resolved-mods.json'
+          resolved = json.loads(resolved_path.read_text()) if resolved_path.exists() else {'entries': []}
+          api = 'https://api.modrinth.com/v2'
+          headers = {'User-Agent': 'ATM11-Full-Fabric-Reference-Scanner/1.0'}
+
+          needles = {
+              'exact_slash': b'net/fabricmc/loader/api/VersionParsingException',
+              'exact_dot': b'net.fabricmc.loader.api.VersionParsingException',
+              'simple': b'VersionParsingException',
+              'fabric_loader_api_slash': b'net/fabricmc/loader/api/',
+              'fabric_loader_api_dot': b'net.fabricmc.loader.api.',
+          }
+
+          def request_json(url):
+              for attempt in range(7):
+                  try:
+                      req = urllib.request.Request(url, headers=headers)
+                      with urllib.request.urlopen(req, timeout=90) as r:
+                          return json.loads(r.read())
+                  except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as exc:
+                      if attempt == 6:
+                          raise
+                      time.sleep(min(2 ** attempt, 20))
+
+          def download(url):
+              for attempt in range(7):
+                  try:
+                      req = urllib.request.Request(url, headers=headers)
+                      with urllib.request.urlopen(req, timeout=180) as r:
+                          return r.read()
+                  except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError):
+                      if attempt == 6:
+                          raise
+                      time.sleep(min(2 ** attempt, 20))
+
+          def scan_payload(raw, container, depth=0):
+              hits = []
+              found = {name: (needle in raw) for name, needle in needles.items()}
+              if any(found.values()):
+                  hits.append({'container': container, 'member': '<whole-archive>', **found})
+              if depth >= 5:
+                  return hits
+              try:
+                  with zipfile.ZipFile(io.BytesIO(raw)) as z:
+                      for info in z.infolist():
+                          if info.file_size > 300 * 1024 * 1024:
+                              continue
+                          try:
+                              data = z.read(info)
+                          except Exception:
+                              continue
+                          member_found = {name: (needle in data) for name, needle in needles.items()}
+                          if any(member_found.values()):
+                              hits.append({'container': container, 'member': info.filename, **member_found})
+                          if info.filename.lower().endswith('.jar'):
+                              hits.extend(scan_payload(data, f'{container}!/{info.filename}', depth + 1))
+              except zipfile.BadZipFile:
+                  pass
+              return hits
+
+          candidates = []
+          seen_urls = set()
+          for project_id, version_id in cfg['indexed']:
+              version = request_json(f'{api}/version/{version_id}')
+              for f in version.get('files', []):
+                  if not f.get('filename', '').lower().endswith('.jar'):
+                      continue
+                  if f['url'] in seen_urls:
+                      continue
+                  seen_urls.add(f['url'])
+                  candidates.append({
+                      'source': 'baseline-index',
+                      'project_id': project_id,
+                      'version_id': version_id,
+                      'filename': f['filename'],
+                      'url': f['url'],
+                      'expected_sha1': f.get('hashes', {}).get('sha1'),
+                  })
+
+          for entry in resolved.get('entries', []):
+              url = entry['downloads'][0]
+              if url in seen_urls:
+                  continue
+              seen_urls.add(url)
+              candidates.append({
+                  'source': 'cozy-addon',
+                  'filename': entry['path'].split('/')[-1],
+                  'url': url,
+                  'expected_sha1': entry.get('hashes', {}).get('sha1'),
+              })
+
+          report = {
+              'ok': True,
+              'candidate_files': len(candidates),
+              'scanned_files': 0,
+              'exact_hits': [],
+              'simple_name_hits': [],
+              'fabric_loader_api_hits': [],
+              'download_errors': [],
+          }
+
+          for index, item in enumerate(candidates, 1):
+              try:
+                  raw = download(item['url'])
+                  actual = hashlib.sha1(raw).hexdigest()
+                  if item.get('expected_sha1') and actual != item['expected_sha1']:
+                      raise RuntimeError(f"SHA-1 mismatch: {actual} != {item['expected_sha1']}")
+                  hits = scan_payload(raw, item['filename'])
+                  report['scanned_files'] += 1
+                  for hit in hits:
+                      row = {**item, **hit}
+                      if hit['exact_slash'] or hit['exact_dot']:
+                          report['exact_hits'].append(row)
+                      if hit['simple']:
+                          report['simple_name_hits'].append(row)
+                      if hit['fabric_loader_api_slash'] or hit['fabric_loader_api_dot']:
+                          report['fabric_loader_api_hits'].append(row)
+                  print(f'[{index}/{len(candidates)}] {item["filename"]}: {len(hits)} hit records', flush=True)
+              except Exception as exc:
+                  report['download_errors'].append({**item, 'error': repr(exc)})
+                  print(f'[{index}/{len(candidates)}] ERROR {item["filename"]}: {exc}', flush=True)
+
+          report['ok'] = not report['download_errors']
+          (root / 'full-fabric-reference-scan.json').write_text(json.dumps(report, indent=2) + '\n')
+          print(json.dumps({
+              'ok': report['ok'],
+              'candidate_files': report['candidate_files'],
+              'scanned_files': report['scanned_files'],
+              'exact_hits': len(report['exact_hits']),
+              'simple_name_hits': len(report['simple_name_hits']),
+              'fabric_loader_api_hits': len(report['fabric_loader_api_hits']),
+              'download_errors': len(report['download_errors']),
+          }))
+          PY
+
+      - name: Commit scan report
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .chatgpt/full-fabric-reference-scan.json
+          if git diff --cached --quiet; then
+            echo "No scan report changes to commit."
+          else
+            git commit -m "Scan all ATM11 jars for Fabric Loader references"
+            git push origin HEAD:chatgpt-atm11-cozy-resolver-20260826
+          fi
