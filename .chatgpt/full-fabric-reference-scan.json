@@ -1,0 +1,84 @@
+{
+  "ok": true,
+  "candidate_files": 216,
+  "scanned_files": 216,
+  "exact_hits": [],
+  "simple_name_hits": [
+    {
+      "source": "baseline-index",
+      "project_id": "YL57xq9U",
+      "version_id": "YuBfnIgK",
+      "filename": "iris-neoforge-1.11.3+mc26.1.2.jar",
+      "url": "https://cdn.modrinth.com/data/YL57xq9U/versions/YuBfnIgK/iris-neoforge-1.11.3%2Bmc26.1.2.jar",
+      "expected_sha1": "399e4fb2f2dea4f68b5e990eed9e113545ec4029",
+      "container": "iris-neoforge-1.11.3+mc26.1.2.jar",
+      "member": "net/irisshaders/iris/UpdateChecker.class",
+      "exact_slash": false,
+      "exact_dot": false,
+      "simple": true,
+      "fabric_loader_api_slash": false,
+      "fabric_loader_api_dot": false
+    }
+  ],
+  "fabric_loader_api_hits": [
+    {
+      "source": "baseline-index",
+      "project_id": "ix1qq8Ux",
+      "version_id": "1hBMKzCk",
+      "filename": "CrashAssistant-neoforge-26.1-1.11.12.jar",
+      "url": "https://cdn.modrinth.com/data/ix1qq8Ux/versions/1hBMKzCk/CrashAssistant-neoforge-26.1-1.11.12.jar",
+      "expected_sha1": "7eb4ab23781cfb2489e77dd24c19ef180c136132",
+      "container": "CrashAssistant-neoforge-26.1-1.11.12.jar",
+      "member": "dev/kostromdan/mods/crash_assistant/common_config/loading_utils/LibrariesJarLocator.class",
+      "exact_slash": false,
+      "exact_dot": false,
+      "simple": false,
+      "fabric_loader_api_slash": false,
+      "fabric_loader_api_dot": true
+    },
+    {
+      "source": "baseline-index",
+      "project_id": "lfHFW1mp",
+      "version_id": "MYF1fYGU",
+      "filename": "journeymap-neoforge-26.1.2-6.0.4.jar",
+      "url": "https://cdn.modrinth.com/data/lfHFW1mp/versions/MYF1fYGU/journeymap-neoforge-26.1.2-6.0.4.jar",
+      "expected_sha1": "5b7464d3b86d14ef7226160bf42e73007ecab76b",
+      "container": "journeymap-neoforge-26.1.2-6.0.4.jar",
+      "member": "journeymap/common/FabricError.class",
+      "exact_slash": false,
+      "exact_dot": false,
+      "simple": false,
+      "fabric_loader_api_slash": true,
+      "fabric_loader_api_dot": false
+    },
+    {
+      "source": "baseline-index",
+      "project_id": "EltpO5cN",
+      "version_id": "yUf7Q96A",
+      "filename": "lootr-neoforge-26.1.2-1.23.38.120.jar",
+      "url": "https://cdn.modrinth.com/data/EltpO5cN/versions/yUf7Q96A/lootr-neoforge-26.1.2-1.23.38.120.jar",
+      "expected_sha1": "b3ee4dac7630199e258f63d49faa8c519b74a88d",
+      "container": "lootr-neoforge-26.1.2-1.23.38.120.jar!/META-INF/jarjar/resourcefulconfig-neoforge-26.1-4.0.1.jar",
+      "member": "com/teamresourceful/resourcefulconfig/common/utils/Platform.class",
+      "exact_slash": false,
+      "exact_dot": false,
+      "simple": false,
+      "fabric_loader_api_slash": false,
+      "fabric_loader_api_dot": true
+    },
+    {
+      "source": "cozy-addon",
+      "filename": "more_beautiful_torches-merged-26.1.2-3.1.0.jar",
+      "url": "https://cdn.modrinth.com/data/C341qvJ5/versions/3qa3qO5q/more_beautiful_torches-merged-26.1.2-3.1.0.jar",
+      "expected_sha1": "22e366718aea64c070690095154f27ab8f8d8940",
+      "container": "more_beautiful_torches-merged-26.1.2-3.1.0.jar",
+      "member": "fabric/io/github/jason13official/more_beautiful_torches/platform/FabricPlatformHelper.class",
+      "exact_slash": false,
+      "exact_dot": false,
+      "simple": false,
+      "fabric_loader_api_slash": true,
+      "fabric_loader_api_dot": false
+    }
+  ],
+  "download_errors": []
+}
